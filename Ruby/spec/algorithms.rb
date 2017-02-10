@@ -4,17 +4,23 @@
 # The result is called a 'digital root'.
 # Do not use string conversion within your method.
 def digital_root(number)
-	num_size = number.to_s.length
-	return number if num_size == 1
+	number_of_digits = number.to_s.length
+	return number if number_of_digits == 1
+	i = number_of_digits
 	sum = 0
-	while num_size > 0
-		divisor = 10 ** num_size
+	while i > 0
+		divisor = 10 ** (i - 1)
 		digit = number / divisor
-		sum += number % (digit * divisor)
-		index += 1
+		sum += digit
+		number = number % (digit * divisor)
+		break if number == 0
+		i -= 1
 	end
+	return sum if sum.to_s.length == 1
 	digital_root(sum) 
 end
+
+p digital_root(231453)
 
 # Write a function that takes a message and an increment amount.
 # Output the same letters shifted by that amount in the alphabet.
